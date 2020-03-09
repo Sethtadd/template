@@ -19,10 +19,10 @@ DEPS := $(patsubst %, $(INCDIR)/%, $(DEPS))
 OBJ  := $(patsubst %, $(OBJDIR)/%, $(OBJ))
 
 # add include directory to compiler arguments
-CFLAGS := -I./$(INCDIR)
+CFLAGS += -I./$(INCDIR) # this WON'T work if CFLAGS is overriden
 
 # OS-specific settings
-ifeq ($(OS), Windows_NT) # run this Makefile on Windows with MSYS, Cygwin, etc.
+ifeq ($(OS), Windows_NT) # this Makefile will only work on Windows with MSYS, Cygwin, etc.
     LIBS     = 
     CLEANEXE = rm -v $(EXE).exe
 else
