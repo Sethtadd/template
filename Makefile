@@ -21,6 +21,20 @@ OBJ  := $(patsubst %, $(OBJDIR)/%, $(OBJ))
 # add include directory to compiler arguments
 CFLAGS := -I./$(INCDIR)
 
+# OS-specific settings
+ifeq ($(OS), Windows_NT) # run on Windows with MSYS, Cygwin, etc.
+    LIBS = 
+else
+    UNAME_S := $(shell uname -s)
+    ifeq ($(UNAME_S), Linux) # Linux
+        LIBS = 
+    endif
+    ifeq ($(UNAME_S), Darwin) #MacOS
+        LIBS = 
+    endif
+endif
+
+# rules
 make: $(OBJ)
 	@mkdir -p $(BINDIR)
 	$(CC) -o $(EXE) $^ $(CFLAGS)
