@@ -22,19 +22,18 @@ OBJ  := $(patsubst %, $(OBJDIR)/%, $(OBJ))
 CFLAGS := -I./$(INCDIR)
 
 # OS-specific settings
-ifeq ($(OS), Windows_NT) # run on Windows with MSYS, Cygwin, etc.
+ifeq ($(OS), Windows_NT) # run this Makefile on Windows with MSYS, Cygwin, etc.
     LIBS     = 
-    CLEANEXT = exe
+    CLEANEXE = rm -v $(EXE).exe
 else
     UNAME_S := $(shell uname -s)
     ifeq ($(UNAME_S), Linux) # Linux
         LIBS     = 
-        CLEANEXT = 
     endif
-    ifeq ($(UNAME_S), Darwin) #MacOS
+    ifeq ($(UNAME_S), Darwin) # MacOS
         LIBS     = 
-        CLEANEXT = 
     endif
+    CLEANEXE = rm -v $(EXE) # for both Linux and MacOS
 endif
 
 # rules
@@ -48,5 +47,4 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c $(DEPS)
 
 clean:
 	rm -v $(OBJ)
-	rm -v $(EXE).$(CLEANEXT)
-
+	$(CLEANEXE)
