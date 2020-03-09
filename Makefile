@@ -23,14 +23,17 @@ CFLAGS := -I./$(INCDIR)
 
 # OS-specific settings
 ifeq ($(OS), Windows_NT) # run on Windows with MSYS, Cygwin, etc.
-    LIBS = 
+    LIBS     = 
+    CLEANEXT = exe
 else
     UNAME_S := $(shell uname -s)
     ifeq ($(UNAME_S), Linux) # Linux
-        LIBS = 
+        LIBS     = 
+        CLEANEXT = 
     endif
     ifeq ($(UNAME_S), Darwin) #MacOS
-        LIBS = 
+        LIBS     = 
+        CLEANEXT = 
     endif
 endif
 
@@ -45,5 +48,5 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c $(DEPS)
 
 clean:
 	rm -v $(OBJ)
-	rm -v $(EXE)
+	rm -v $(EXE).$(CLEANEXT)
 
